@@ -5,7 +5,7 @@ Tree-sitter parsing · Confidence-scored blast radius · Native MCP server · Ad
 
 ---
 
-## Why another tool?
+## Overview
 
 Existing code analysis tools often return bloated, imprecise context that wastes tokens and confuses AI assistants. CodeContextGraph is built from the ground up to solve these core problems:
 

@@ -1,21 +1,11 @@
 """
 mcp_server.py — Native MCP server for CodeContextGraph.
 
-KEY IMPROVEMENT over code-review-graph:
-  Their MCP requires a separate `serve` process and manual JSON config.
-  Ours ships as a single `ccg mcp` command with auto-generated configs
-  for Claude Code, Cursor, Windsurf, and VS Code.
-
-  Tools exposed
-  -------------
-  ccg_blast_radius     — confidence-scored impact analysis
-  ccg_context          — full AI context bundle
-  ccg_search           — hybrid BM25 + graph-proximity search
-  ccg_stats            — graph health metrics
-  ccg_update           — incremental re-index of changed files
-
-  All tools work without the `mcp` extra — they're implemented as plain
-  JSON-over-stdio so any MCP-compatible client can call them.
+Features:
+  - Single 'ccg mcp' command, no separate process needed.
+  - Auto-generated configs for Claude Code, Cursor, Windsurf, and VS Code.
+  - Tools: ccg_blast_radius, ccg_context, ccg_search, ccg_stats, ccg_update.
+  - Works without the `mcp` extra — plain JSON-over-stdio.
 """
 
 from __future__ import annotations

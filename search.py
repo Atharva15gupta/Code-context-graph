@@ -1,15 +1,13 @@
 """
 search.py — Hybrid BM25 + graph-proximity search.
 
-KEY IMPROVEMENT over code-review-graph:
-  Their search has MRR 0.35 and returns 0 hits for module-pattern names.
-  We combine three signals:
-    1. BM25 text ranking on name + signature + docstring
-    2. Graph proximity — symbols closer to your current file rank higher
-    3. Kind boost — functions/classes rank above imports
+This search combines multiple signals for accurate results:
+  1. BM25 text ranking on name + signature + docstring
+  2. Graph proximity — symbols closer to your current file rank higher
+  3. Kind boost — functions/classes rank above imports
 
-  Result: relevant symbols float to the top even with short or
-  camelCase / snake_case query mismatches.
+Result: relevant symbols float to the top even with short or
+camelCase / snake_case query mismatches.
 """
 
 from __future__ import annotations

@@ -1,8 +1,7 @@
 """
 parsers/treesitter.py — Tree-sitter powered symbol extraction.
 
-KEY IMPROVEMENT over code-review-graph and our own v0.1 regex parsers:
-  Tree-sitter produces a real AST, so we correctly handle:
+Using real AST parsing, we correctly handle:
   - Nested functions and closures
   - Decorated functions / classes
   - Arrow functions, async generators

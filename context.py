@@ -1,11 +1,11 @@
 """
 context.py — Adaptive, confidence-aware context builder.
 
-KEY IMPROVEMENTS over code-review-graph
------------------------------------------
+Core features
+-------------
 1. Adaptive sizing  — trivial single-file changes skip graph expansion
    entirely, so the AI gets a lean context instead of a bloated one
-   (fixes their <1x efficiency regression on small changes).
+   (fixes the efficiency regression on small changes).
 
 2. Confidence tiers — context groups files into HIGH / MEDIUM / LOW
    confidence buckets so the AI knows how much to trust each inclusion.

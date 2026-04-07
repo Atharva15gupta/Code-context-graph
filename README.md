@@ -7,15 +7,14 @@ Tree-sitter parsing · Confidence-scored blast radius · Native MCP server · Ad
 
 ## Why another tool?
 
-[code-review-graph](https://github.com/tirth8205/code-review-graph) proved the concept works.
-We studied it carefully and found four concrete weaknesses to fix:
+Existing code analysis tools often return bloated, imprecise context that wastes tokens and confuses AI assistants. CodeContextGraph is built from the ground up to solve these core problems:
 
-| Weakness | Their approach | Our fix |
-|---|---|---|
-| **Blast radius precision** | Flat list, ~38% precision | Confidence scores 0–1 per file so AI chooses depth |
-| **Token regression on small changes** | Graph context > raw file for tiny edits | Adaptive mode skips graph expansion for trivial changes |
-| **Search quality** | MRR 0.35, 0 hits for module patterns | Hybrid BM25 + graph-proximity, handles camelCase/snake_case |
-| **Flow detection** | Only reliable in Python | Cross-language via Tree-sitter AST call graphs |
+- **Precision scoring**: Every affected file gets a confidence score (0–1) based on relationship strength and graph distance, so the AI knows exactly what to trust.
+- **Adaptive efficiency**: Trivial single-file changes skip graph expansion entirely, avoiding token bloat.
+- **Hybrid search**: Combines BM25 text ranking with graph proximity to find symbols even with partial or mismatched names.
+- **Cross-language flow**: Real AST parsing for 7 languages captures accurate call graphs across your entire stack.
+
+The result is a lean, accurate, and intelligent context engine that scales from small tweaks to large refactors.
 
 ---
 
@@ -85,9 +84,6 @@ We detect this automatically:
 ```
 > ⚡ Trivial change detected — graph expansion skipped to save tokens.
 ```
-
-code-review-graph can produce more tokens than just reading the file directly for small changes.
-We never do that.
 
 ---
 

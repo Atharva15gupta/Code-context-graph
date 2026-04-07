@@ -1,11 +1,10 @@
 """
 graph.py — Knowledge graph engine with confidence-scored blast radius.
 
-KEY IMPROVEMENT over code-review-graph:
-  Their blast radius is binary (affected / not affected) with ~38% precision.
-  Ours scores every affected file 0.0–1.0 by relationship strength and graph
-  distance, so the AI can decide how deep to read rather than getting a flat
-  list of false-positives.
+Core innovation:
+  Instead of a binary (affected / not) blast radius, we score every affected file
+  between 0.0–1.0 based on relationship strength and graph distance. This lets the
+  AI decide how deep to read, avoiding the noise of false positives.
 """
 
 from __future__ import annotations
@@ -116,8 +115,8 @@ class KnowledgeGraph:
     """
     Persistent knowledge graph: SQLite for storage, NetworkX for traversal.
 
-    Improvements over code-review-graph
-    ------------------------------------
+    Key features
+    ------------
     1. Confidence-scored blast radius — every affected file gets a 0–1 score
        based on relationship type weights and graph distance decay.
     2. Adaptive context — detects trivial single-symbol changes and skips
@@ -254,9 +253,8 @@ class KnowledgeGraph:
         - The AI can threshold: read >0.7 always, read 0.3–0.7 if unsure,
           skip <0.3 unless asked
 
-        KEY IMPROVEMENT: code-review-graph returns a flat list with ~38%
-        precision. We return ranked scores so the AI can choose its own
-        confidence threshold.
+        Instead of a binary affected/not list, we provide ranked scores
+        so the AI can set its own confidence threshold.
         """
         DEPTH_DECAY = 0.75  # score * 0.75 per hop
 
@@ -267,7 +265,7 @@ class KnowledgeGraph:
                 direct[r[0]] = 1.0
 
         # Adaptive: if change is trivially small, skip graph expansion
-        # (fixes code-review-graph's <1x efficiency on single-file tiny changes)
+        # (fixes the efficiency issue on single-file tiny changes)
         if self._is_trivial_change(changed_files, len(direct)):
             return self._trivial_result(changed_files, direct)
 
@@ -343,7 +341,6 @@ class KnowledgeGraph:
         """
         Detect trivial changes (single small file) where graph expansion
         would add overhead without value.
-        FIX for code-review-graph's <1x efficiency on small changes.
         """
         if len(changed_files) != 1:
             return False

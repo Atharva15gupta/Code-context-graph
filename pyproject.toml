@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "code-context-graph"
+version = "0.2.0"
+description = "CodeContextGraph — precision-first knowledge graph for AI coding assistants. Tree-sitter parsing, confidence-scored blast radius, built-in MCP server."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+keywords = ["ai", "code-analysis", "knowledge-graph", "developer-tools", "llm", "mcp", "cursor", "claude", "context"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "click>=8.1",
+    "rich>=13.0",
+    "networkx>=3.0",
+    "watchdog>=3.0",
+    "gitpython>=3.1",
+    "tree-sitter>=0.23",
+    "tree-sitter-python>=0.23",
+    "tree-sitter-javascript>=0.23",
+    "tree-sitter-typescript>=0.23",
+    "tree-sitter-go>=0.23",
+    "tree-sitter-rust>=0.23",
+    "tree-sitter-java>=0.23",
+    "rank-bm25>=0.2",
+]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0"]
+
+[project.scripts]
+ccg = "ccg.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
